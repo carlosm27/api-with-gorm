@@ -30,7 +30,7 @@ func GetGrocery(c *gin.Context) {
 
 	var grocery model.Grocery
 
-	if err := model.Db.Where("name= ?", c.Param("name")).First(&grocery).Error; err != nil {
+	if err := model.Db.Where("id= ?", c.Param("id")).First(&grocery).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Grocery not found"})
 		return
 	}
@@ -80,7 +80,7 @@ func DeleteGrocery(c *gin.Context) {
 	var grocery model.Grocery
 
 	if err := model.Db.Where("id = ?", c.Param("id")).First(&grocery).Error; err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Grocery not found!"})
 		return
 	}
 
