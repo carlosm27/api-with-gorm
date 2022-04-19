@@ -5,11 +5,11 @@ import (
 	"gorm.io/gorm"
 )
 
-var Db *gorm.DB
+//var Db *gorm.DB
 
-func Database() {
+func Database() *gorm.DB {
 
-	_db, err := gorm.Open(sqlite.Open("./test.db"), &gorm.Config{})
+	_db, err := gorm.Open(sqlite.Open("./database.db"), &gorm.Config{})
 
 	if err != nil {
 		panic(err)
@@ -19,6 +19,6 @@ func Database() {
 		panic(err)
 	}
 
-	Db = _db
-
+	Db := _db
+	return Db
 }

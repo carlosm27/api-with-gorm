@@ -21,7 +21,7 @@ func GetGroceries(c *gin.Context) {
 
 	var groceries []model.Grocery
 
-	model.Db.Find(&groceries)
+	model.Database().Find(&groceries)
 	c.JSON(http.StatusOK, groceries)
 
 }
@@ -30,7 +30,7 @@ func GetGrocery(c *gin.Context) {
 
 	var grocery model.Grocery
 
-	if err := model.Db.Where("id= ?", c.Param("id")).First(&grocery).Error; err != nil {
+	if err := model.Database().Where("id= ?", c.Param("id")).First(&grocery).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Grocery not found"})
 		return
 	}
@@ -49,7 +49,7 @@ func PostGrocery(c *gin.Context) {
 	}
 
 	newGrocery := model.Grocery{Name: grocery.Name, Quantity: grocery.Quantity}
-	model.Db.Create(&newGrocery)
+	model.Database().Create(&newGrocery)
 
 	c.JSON(http.StatusOK, newGrocery)
 }
@@ -58,7 +58,7 @@ func UpdateGrocery(c *gin.Context) {
 
 	var grocery model.Grocery
 
-	if err := model.Db.Where("id = ?", c.Param("id")).First(&grocery).Error; err != nil {
+	if err := model.Database().Where("id = ?", c.Param("id")).First(&grocery).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Grocery not found!"})
 		return
 	}
@@ -70,7 +70,7 @@ func UpdateGrocery(c *gin.Context) {
 		return
 	}
 
-	model.Db.Model(&grocery).Updates(model.Grocery{Name: updateGrocery.Name, Quantity: updateGrocery.Quantity})
+	model.Database().Model(&grocery).Updates(model.Grocery{Name: updateGrocery.Name, Quantity: updateGrocery.Quantity})
 	c.JSON(http.StatusOK, grocery)
 
 }
@@ -79,12 +79,12 @@ func DeleteGrocery(c *gin.Context) {
 
 	var grocery model.Grocery
 
-	if err := model.Db.Where("id = ?", c.Param("id")).First(&grocery).Error; err != nil {
+	if err := model.Database().Where("id = ?", c.Param("id")).First(&grocery).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Grocery not found!"})
 		return
 	}
 
-	model.Db.Delete(&grocery)
+	model.Database().Delete(&grocery)
 	c.JSON(http.StatusOK, gin.H{"message": "Grocery deleted"})
 
 }
