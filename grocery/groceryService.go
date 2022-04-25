@@ -1,9 +1,9 @@
-package controllers
+package grocery
 
 import (
 	"net/http"
 
-	"github.com/carlosm27/go_projects/apiwithgorm/model"
+	"github.com/carlosm27/apiwithgorm/model"
 	"github.com/gin-gonic/gin"
 )
 

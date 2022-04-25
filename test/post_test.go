@@ -10,8 +10,8 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/carlosm27/go_projects/apiwithgorm/controllers"
-	"github.com/carlosm27/go_projects/apiwithgorm/model"
+	"github.com/carlosm27/apiwithgorm/grocery"
+	"github.com/carlosm27/apiwithgorm/model"
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
 )
@@ -28,7 +28,7 @@ func TestPostGrocery(t *testing.T) {
 	}
 
 	req, _ := http.NewRequest("POST", "/grocery", bytes.NewBuffer(json_data))
-	router.POST("/grocery", controllers.PostGrocery)
+	router.POST("/grocery", grocery.PostGrocery)
 
 	var res map[string]interface{}
 
@@ -55,7 +55,7 @@ func TestPostInvalidGrocery(t *testing.T) {
 	}
 
 	req, _ := http.NewRequest("POST", "/grocery", bytes.NewBuffer(json_data))
-	router.POST("/grocery", controllers.PostGrocery)
+	router.POST("/grocery", grocery.PostGrocery)
 
 	var res map[string]interface{}
 
@@ -72,7 +72,7 @@ func TestPostInvalidGrocery(t *testing.T) {
 func GetGroceryTest(id string) string {
 	model.Database()
 	router := gin.Default()
-	router.GET("/grocery/:id", controllers.GetGrocery)
+	router.GET("/grocery/:id", grocery.GetGrocery)
 	w := httptest.NewRecorder()
 	req, _ := http.NewRequest("GET", "/grocery/"+id, nil)
 	router.ServeHTTP(w, req)

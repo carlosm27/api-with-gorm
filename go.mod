@@ -1,4 +1,4 @@
-module github.com/carlosm27/go_projects/apiwithgorm
+module github.com/carlosm27/apiwithgorm
 
 go 1.16
 

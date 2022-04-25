@@ -5,8 +5,8 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/carlosm27/go_projects/apiwithgorm/controllers"
-	"github.com/carlosm27/go_projects/apiwithgorm/model"
+	"github.com/carlosm27/apiwithgorm/grocery"
+	"github.com/carlosm27/apiwithgorm/model"
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
 )
@@ -15,7 +15,7 @@ func TestGetGrocery(t *testing.T) {
 
 	model.Database()
 	router := gin.Default()
-	router.GET("/grocery/:id", controllers.GetGrocery)
+	router.GET("/grocery/:id", grocery.GetGrocery)
 	w := httptest.NewRecorder()
 	req, _ := http.NewRequest("GET", "/grocery/1", nil)
 	router.ServeHTTP(w, req)
@@ -28,7 +28,7 @@ func TestGetGrocery(t *testing.T) {
 func TestGetGroceryNotFound(t *testing.T) {
 	model.Database()
 	router := gin.Default()
-	router.GET("/grocery/:id", controllers.GetGrocery)
+	router.GET("/grocery/:id", grocery.GetGrocery)
 	w := httptest.NewRecorder()
 	req, _ := http.NewRequest("GET", "/grocery/20", nil)
 	router.ServeHTTP(w, req)

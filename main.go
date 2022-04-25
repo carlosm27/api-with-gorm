@@ -3,8 +3,8 @@ package main
 import (
 	"log"
 
-	"github.com/carlosm27/go_projects/apiwithgorm/controllers"
-	"github.com/carlosm27/go_projects/apiwithgorm/model"
+	"github.com/carlosm27/apiwithgorm/grocery"
+	"github.com/carlosm27/apiwithgorm/model"
 	"github.com/gin-gonic/gin"
 )
 
@@ -14,11 +14,11 @@ func main() {
 
 	router := gin.Default()
 
-	router.GET("/groceries", controllers.GetGroceries)
-	router.GET("/grocery/:id", controllers.GetGrocery)
-	router.POST("/grocery", controllers.PostGrocery)
-	router.PUT("/grocery/:id", controllers.UpdateGrocery)
-	router.DELETE("/grocery/:id", controllers.DeleteGrocery)
+	router.GET("/groceries", grocery.GetGroceries)
+	router.GET("/grocery/:id", grocery.GetGrocery)
+	router.POST("/grocery", grocery.PostGrocery)
+	router.PUT("/grocery/:id", grocery.UpdateGrocery)
+	router.DELETE("/grocery/:id", grocery.DeleteGrocery)
 
 	log.Fatal(router.Run(":10000"))
 }
