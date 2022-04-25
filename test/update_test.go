@@ -8,8 +8,8 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/carlosm27/go_projects/apiwithgorm/controllers"
-	"github.com/carlosm27/go_projects/apiwithgorm/model"
+	"github.com/carlosm27/apiwithgorm/grocery"
+	"github.com/carlosm27/apiwithgorm/model"
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
 )
@@ -25,7 +25,7 @@ func TestUpdateGrocery(t *testing.T) {
 		log.Fatal(err)
 	}
 
-	router.PUT("/grocery/:id", controllers.UpdateGrocery)
+	router.PUT("/grocery/:id", grocery.UpdateGrocery)
 	w := httptest.NewRecorder()
 	req, _ := http.NewRequest(http.MethodPut, "/grocery/1", bytes.NewBuffer(json_data))
 	router.ServeHTTP(w, req)
@@ -43,7 +43,7 @@ func TestUpdateGroceryNotFound(t *testing.T) {
 		log.Fatal(err)
 	}
 
-	router.PUT("/grocery/:id", controllers.UpdateGrocery)
+	router.PUT("/grocery/:id", grocery.UpdateGrocery)
 	w := httptest.NewRecorder()
 	req, _ := http.NewRequest(http.MethodPut, "/grocery/20", bytes.NewBuffer(json_data))
 	router.ServeHTTP(w, req)
@@ -60,7 +60,7 @@ func TestInvalidField(t *testing.T) {
 		log.Fatal(err)
 	}
 
-	router.PUT("/grocery/:id", controllers.UpdateGrocery)
+	router.PUT("/grocery/:id", grocery.UpdateGrocery)
 	w := httptest.NewRecorder()
 	req, _ := http.NewRequest(http.MethodPut, "/grocery/16", bytes.NewBuffer(json_data))
 	router.ServeHTTP(w, req)
@@ -72,7 +72,7 @@ func TestInvalidField(t *testing.T) {
 func GetGroceryUpdatedTest(id string) string {
 	model.Database()
 	router := gin.Default()
-	router.GET("/grocery/:id", controllers.GetGrocery)
+	router.GET("/grocery/:id", grocery.GetGrocery)
 	w := httptest.NewRecorder()
 	req, _ := http.NewRequest("GET", "/grocery/"+id, nil)
 	router.ServeHTTP(w, req)
