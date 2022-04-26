@@ -21,8 +21,8 @@ func GetGroceries(c *gin.Context) {
 
 	var groceries []model.Grocery
 
-	if err := model.DB.Find(&groceries); err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": "Grocery not found"})
+	if err := model.DB.Find(&groceries).Error; err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
 		return
 	}
 	c.JSON(http.StatusOK, groceries)
@@ -53,8 +53,8 @@ func PostGrocery(c *gin.Context) {
 
 	newGrocery := model.Grocery{Name: grocery.Name, Quantity: grocery.Quantity}
 
-	if err := model.DB.Create(&newGrocery); err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Cannot post grocery"})
+	if err := model.DB.Create(&newGrocery).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
