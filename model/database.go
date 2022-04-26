@@ -1,22 +1,24 @@
 package model
 
 import (
+	"log"
+
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
 
-func Database() *gorm.DB {
+var DB *gorm.DB
+
+func Database() {
 
 	_db, err := gorm.Open(sqlite.Open("./database.db"), &gorm.Config{})
 
 	if err != nil {
-		panic(err)
+		log.Fatal(err.Error())
 	}
 
-	if err := _db.AutoMigrate(&Grocery{}); err != nil {
-		panic(err)
-	}
+	_db.AutoMigrate(&Grocery{})
 
-	Db := _db
-	return Db
+	DB = _db
+
 }
