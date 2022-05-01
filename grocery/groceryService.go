@@ -22,6 +22,7 @@ func GetGroceries(c *gin.Context) {
 
 	var groceries []model.Grocery
 
+
 	db, err := model.Database()
 	if err != nil {
 		log.Println(err)
