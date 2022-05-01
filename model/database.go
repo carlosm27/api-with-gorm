@@ -8,19 +8,16 @@ import (
 )
 
 
-var DB *gorm.DB
+func Database() (*gorm.DB, error) {
 
-func Database() {
-
-
-	_db, err := gorm.Open(sqlite.Open("./database.db"), &gorm.Config{})
+	DB, err := gorm.Open(sqlite.Open("./database.db"), &gorm.Config{})
 
 	if err != nil {
 		log.Fatal(err.Error())
 	}
 
-	_db.AutoMigrate(&Grocery{})
+	DB.AutoMigrate(&Grocery{})
 
-	DB = _db
+	return DB, err
 
 }

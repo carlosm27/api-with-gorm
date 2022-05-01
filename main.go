@@ -10,7 +10,11 @@ import (
 
 func main() {
 
-	model.Database()
+	db, err := model.Database()
+	if err != nil {
+		log.Println(err)
+	}
+	db.DB()
 
 	router := gin.Default()
 
