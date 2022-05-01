@@ -99,10 +99,6 @@ func UpdateGrocery(c *gin.Context) {
 		return
 	}
 
-	db, err = model.Database()
-	if err != nil {
-		log.Println(err)
-	}
 	if err := db.Model(&grocery).Updates(model.Grocery{Name: updateGrocery.Name, Quantity: updateGrocery.Quantity}).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return

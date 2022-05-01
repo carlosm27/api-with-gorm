@@ -10,14 +10,16 @@ import (
 
 func Database() (*gorm.DB, error) {
 
-	DB, err := gorm.Open(sqlite.Open("./database.db"), &gorm.Config{})
+	db, err := gorm.Open(sqlite.Open("./"), &gorm.Config{})
 
 	if err != nil {
 		log.Fatal(err.Error())
 	}
 
-	DB.AutoMigrate(&Grocery{})
+	if err = db.AutoMigrate(&Grocery{}); err != nil {
+		log.Println(err)
+	}
 
-	return DB, err
+	return db, err
 
 }
